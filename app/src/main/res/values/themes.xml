@@ -18,7 +18,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="android:background">@color/purple_200</item>
+        <item name="android:background">@color/color_transparent</item>
         <item name="title">"Linkan"</item>
         <item name="titleTextColor">@color/white</item>
     </style>
