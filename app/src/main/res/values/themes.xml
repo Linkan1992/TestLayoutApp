@@ -19,8 +19,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="android:background">@color/color_transparent</item>
-        <item name="title">"Linkan"</item>
         <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="SpinnerToolbar" parent="Toolbar">
+        <item name="android:background">@color/purple_500</item>
+    </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:background">@color/purple_500</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/d_16dp</item>
     </style>
 
     <style name="WalletBalance">
