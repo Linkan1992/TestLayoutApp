@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_grey">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:theme="@style/SpinnerToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_collapseMode="pin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Spinner Dropdown"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spn_filter"
+        style="@style/Spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="@dimen/d_16dp"
+        android:layout_marginStart="@dimen/d_16dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/spn_filter"
+        app:layout_constraintStart_toEndOf="@id/spn_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:drawable/dialog_holo_light_frame">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spn_sort"
+            style="@style/SpinnerSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_drop_arrow"
+            android:spinnerMode="dropdown"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_drop_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/spn_sort"
+            app:layout_constraintStart_toEndOf="@id/spn_sort"
+            app:layout_constraintBottom_toBottomOf="@id/spn_sort"
+            app:srcCompat="@drawable/ic_drop_down_arrow"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
