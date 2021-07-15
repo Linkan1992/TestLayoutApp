@@ -26,6 +26,9 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         val itemList = prepareSpinnerList()
         initSpinner(itemList)
+
+        initSortSpinner(prepareSortSpinnerList())
+
     }
 
     private fun prepareSpinnerList() : List<String> {
@@ -35,6 +38,27 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             this.add("Pooja")
             this.add("Pradeep")
             this.add("Bindu")
+        }
+
+        return spnList
+    }
+
+    private fun initSortSpinner(prepareSortSpinnerList: List<String>) {
+        val spnSort = findViewById<AppCompatSpinner>(R.id.spn_sort)
+        spnSort.onItemSelectedListener = this
+        val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
+        spnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spnSort.adapter = spnAdapter
+    }
+
+
+    private fun prepareSortSpinnerList() : List<String> {
+        val spnList : List<String> = ArrayList<String>().apply {
+            this.add("Wrangler")
+            this.add("Pepe Jeans")
+            this.add("Spykar")
+            this.add("US Polo")
+            this.add("Color Plus")
         }
 
         return spnList

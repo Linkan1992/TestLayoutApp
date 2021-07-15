@@ -32,6 +32,12 @@
         <item name="android:popupBackground">@android:drawable/dialog_holo_light_frame</item>
     </style>
 
+    <style name="SpinnerSort" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@color/color_transparent</item>
+        <item name="android:dropDownHorizontalOffset">50dp</item>
+        <item name="android:popupBackground">@android:drawable/dialog_holo_light_frame</item>
+    </style>
+
     <style name="WalletBalance">
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">sans-serif-medium</item>
