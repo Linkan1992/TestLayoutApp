@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
+import com.example.testlayoutapp.model.JeansDTO
 
 class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -24,47 +25,56 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spinner_layout)
 
-        val itemList = prepareSpinnerList()
-        initSpinner(itemList)
-
         initSortSpinner(prepareSortSpinnerList())
-
     }
 
-    private fun prepareSpinnerList() : List<String> {
+
+    private fun prepareJeansSizeList(jeansBrandName : String) : List<String>{
         val spnList : List<String> = ArrayList<String>().apply {
-            this.add("Suraj")
-            this.add("Geeta")
-            this.add("Pooja")
-            this.add("Pradeep")
-            this.add("Bindu")
+
+            this.add("$jeansBrandName - 30")
+            this.add("$jeansBrandName - 32")
+            this.add("$jeansBrandName - 34")
+            this.add("$jeansBrandName - 36")
+            this.add("$jeansBrandName - 38")
         }
 
         return spnList
     }
 
-    private fun initSortSpinner(prepareSortSpinnerList: List<String>) {
+    private fun initSortSpinner(prepareSortSpinnerList: List<JeansDTO>) {
         val spnSort = findViewById<AppCompatSpinner>(R.id.spn_sort)
-        spnSort.onItemSelectedListener = this
-        val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
+        spnSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedJeans = parent?.selectedItem as JeansDTO
+                initJeansSpinner(selectedJeans.availableSize)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+        val spnAdapter = ArrayAdapter<JeansDTO>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
         spnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnSort.adapter = spnAdapter
     }
 
 
-    private fun prepareSortSpinnerList() : List<String> {
-        val spnList : List<String> = ArrayList<String>().apply {
-            this.add("Wrangler")
-            this.add("Pepe Jeans")
-            this.add("Spykar")
-            this.add("US Polo")
-            this.add("Color Plus")
+    private fun prepareSortSpinnerList() : List<JeansDTO> {
+        val spnList : List<JeansDTO> = ArrayList<JeansDTO>().apply {
+            this.add(JeansDTO(brandName = "Select your brand", availableSize = ArrayList()))
+            this.add(JeansDTO(brandName = "Wrangler", availableSize = prepareJeansSizeList(jeansBrandName = "Wrangler")))
+            this.add(JeansDTO(brandName = "Pepe Jeans", availableSize = prepareJeansSizeList(jeansBrandName = "Pepe Jeans")))
+            this.add(JeansDTO(brandName = "Spykar", availableSize = prepareJeansSizeList(jeansBrandName = "Spykar")))
+            this.add(JeansDTO(brandName = "US Polo", availableSize = prepareJeansSizeList(jeansBrandName = "US Polo")))
+            this.add(JeansDTO(brandName = "Color Plus", availableSize = prepareJeansSizeList(jeansBrandName = "Color Plus")))
         }
 
         return spnList
     }
 
-    private fun initSpinner(itemList: List<String>) {
+    private fun initJeansSpinner(itemList: List<String>) {
         val spnFilter = findViewById<AppCompatSpinner>(R.id.spn_filter)
         spnFilter.onItemSelectedListener = this
         val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, itemList)
@@ -75,8 +85,10 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selectedItem = parent?.selectedItem as String
             Toast.makeText(baseContext, "Selected Item = $selectedItem", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
 
 }
