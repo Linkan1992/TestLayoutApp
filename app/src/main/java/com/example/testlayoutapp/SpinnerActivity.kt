@@ -24,20 +24,46 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spinner_layout)
 
-        val itemList = prepareSpinnerList()
-        initSpinner(itemList)
-
         initSortSpinner(prepareSortSpinnerList())
 
+        val jeansSizeList = prepareAvailableSizeSpinnerList()
+        initSpinner(jeansSizeList)
     }
 
-    private fun prepareSpinnerList() : List<String> {
+    private fun prepareAvailableSizeSpinnerList() : List<String> {
         val spnList : List<String> = ArrayList<String>().apply {
-            this.add("Suraj")
-            this.add("Geeta")
-            this.add("Pooja")
-            this.add("Pradeep")
-            this.add("Bindu")
+
+            this.add("Select your brand size")
+
+            this.add("Wrangler - 30")
+            this.add("Wrangler - 32")
+            this.add("Wrangler - 34")
+            this.add("Wrangler - 36")
+            this.add("Wrangler - 38")
+
+            this.add("Pepe Jeans - 30")
+            this.add("Pepe Jeans - 32")
+            this.add("Pepe Jeans - 34")
+            this.add("Pepe Jeans - 36")
+            this.add("Pepe Jeans - 38")
+
+            this.add("Spykar - 30")
+            this.add("Spykar - 32")
+            this.add("Spykar - 34")
+            this.add("Spykar - 36")
+            this.add("Spykar - 38")
+
+            this.add("US Polo - 30")
+            this.add("US Polo - 32")
+            this.add("US Polo - 34")
+            this.add("US Polo - 36")
+            this.add("US Polo - 38")
+
+            this.add("Color Plus - 30")
+            this.add("Color Plus - 32")
+            this.add("Color Plus - 34")
+            this.add("Color Plus - 36")
+            this.add("Color Plus - 38")
         }
 
         return spnList
@@ -54,6 +80,7 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     private fun prepareSortSpinnerList() : List<String> {
         val spnList : List<String> = ArrayList<String>().apply {
+            this.add("Select your brand")
             this.add("Wrangler")
             this.add("Pepe Jeans")
             this.add("Spykar")
