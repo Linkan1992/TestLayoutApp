@@ -12,6 +12,8 @@ import androidx.appcompat.widget.AppCompatSpinner
 
 class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
+    private val jeansSizeList : List<String> by lazy { prepareAvailableSizeSpinnerList() }
+
     companion object{
         fun navigateToPage(context : Context){
             val intent = Intent(context, SpinnerActivity::class.java)
@@ -26,8 +28,7 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         initSortSpinner(prepareSortSpinnerList())
 
-        val jeansSizeList = prepareAvailableSizeSpinnerList()
-        initSpinner(jeansSizeList)
+      //  initJeansSpinner(jeansSizeList)
     }
 
     private fun prepareAvailableSizeSpinnerList() : List<String> {
@@ -71,7 +72,18 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     private fun initSortSpinner(prepareSortSpinnerList: List<String>) {
         val spnSort = findViewById<AppCompatSpinner>(R.id.spn_sort)
-        spnSort.onItemSelectedListener = this
+        spnSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedJeans = parent?.selectedItem as String
+                val filteredJeansSize = filterSizeBasedOnJeansSelection(selectedJeans)
+                initJeansSpinner(filteredJeansSize)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
         val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
         spnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnSort.adapter = spnAdapter
@@ -91,7 +103,7 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         return spnList
     }
 
-    private fun initSpinner(itemList: List<String>) {
+    private fun initJeansSpinner(itemList: List<String>) {
         val spnFilter = findViewById<AppCompatSpinner>(R.id.spn_filter)
         spnFilter.onItemSelectedListener = this
         val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, itemList)
@@ -102,8 +114,19 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selectedItem = parent?.selectedItem as String
             Toast.makeText(baseContext, "Selected Item = $selectedItem", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    private fun filterSizeBasedOnJeansSelection(selectedJeans : String) : List<String>{
+        val filteredJeansSizeList = ArrayList<String>()
+        for (jeansSize in jeansSizeList){
+            if (jeansSize.contains(selectedJeans))
+                filteredJeansSizeList.add(jeansSize)
+        }
+
+        return filteredJeansSizeList
+    }
 
 }
