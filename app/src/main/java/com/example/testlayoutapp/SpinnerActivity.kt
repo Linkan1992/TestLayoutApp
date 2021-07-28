@@ -9,10 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
+import com.example.testlayoutapp.model.JeansDTO
 
 class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
-    private val jeansSizeList : List<String> by lazy { prepareAvailableSizeSpinnerList() }
 
     companion object{
         fun navigateToPage(context : Context){
@@ -27,56 +26,28 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         setContentView(R.layout.activity_spinner_layout)
 
         initSortSpinner(prepareSortSpinnerList())
-
-      //  initJeansSpinner(jeansSizeList)
     }
 
-    private fun prepareAvailableSizeSpinnerList() : List<String> {
+
+    private fun prepareJeansSizeList(jeansBrandName : String) : List<String>{
         val spnList : List<String> = ArrayList<String>().apply {
-
-            this.add("Select your brand size")
-
-            this.add("Wrangler - 30")
-            this.add("Wrangler - 32")
-            this.add("Wrangler - 34")
-            this.add("Wrangler - 36")
-            this.add("Wrangler - 38")
-
-            this.add("Pepe Jeans - 30")
-            this.add("Pepe Jeans - 32")
-            this.add("Pepe Jeans - 34")
-            this.add("Pepe Jeans - 36")
-            this.add("Pepe Jeans - 38")
-
-            this.add("Spykar - 30")
-            this.add("Spykar - 32")
-            this.add("Spykar - 34")
-            this.add("Spykar - 36")
-            this.add("Spykar - 38")
-
-            this.add("US Polo - 30")
-            this.add("US Polo - 32")
-            this.add("US Polo - 34")
-            this.add("US Polo - 36")
-            this.add("US Polo - 38")
-
-            this.add("Color Plus - 30")
-            this.add("Color Plus - 32")
-            this.add("Color Plus - 34")
-            this.add("Color Plus - 36")
-            this.add("Color Plus - 38")
+            
+            this.add("$jeansBrandName - 30")
+            this.add("$jeansBrandName - 32")
+            this.add("$jeansBrandName - 34")
+            this.add("$jeansBrandName - 36")
+            this.add("$jeansBrandName - 38")
         }
 
         return spnList
     }
 
-    private fun initSortSpinner(prepareSortSpinnerList: List<String>) {
+    private fun initSortSpinner(prepareSortSpinnerList: List<JeansDTO>) {
         val spnSort = findViewById<AppCompatSpinner>(R.id.spn_sort)
         spnSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedJeans = parent?.selectedItem as String
-                val filteredJeansSize = filterSizeBasedOnJeansSelection(selectedJeans)
-                initJeansSpinner(filteredJeansSize)
+                val selectedJeans = parent?.selectedItem as JeansDTO
+                initJeansSpinner(selectedJeans.availableSize)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,20 +55,20 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             }
 
         }
-        val spnAdapter = ArrayAdapter<String>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
+        val spnAdapter = ArrayAdapter<JeansDTO>(this@SpinnerActivity, android.R.layout.simple_spinner_item, prepareSortSpinnerList)
         spnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnSort.adapter = spnAdapter
     }
 
 
-    private fun prepareSortSpinnerList() : List<String> {
-        val spnList : List<String> = ArrayList<String>().apply {
-            this.add("Select your brand")
-            this.add("Wrangler")
-            this.add("Pepe Jeans")
-            this.add("Spykar")
-            this.add("US Polo")
-            this.add("Color Plus")
+    private fun prepareSortSpinnerList() : List<JeansDTO> {
+        val spnList : List<JeansDTO> = ArrayList<JeansDTO>().apply {
+            this.add(JeansDTO(brandName = "Select your brand", availableSize = ArrayList()))
+            this.add(JeansDTO(brandName = "Wrangler", availableSize = prepareJeansSizeList(jeansBrandName = "Wrangler")))
+            this.add(JeansDTO(brandName = "Pepe Jeans", availableSize = prepareJeansSizeList(jeansBrandName = "Pepe Jeans")))
+            this.add(JeansDTO(brandName = "Spykar", availableSize = prepareJeansSizeList(jeansBrandName = "Spykar")))
+            this.add(JeansDTO(brandName = "US Polo", availableSize = prepareJeansSizeList(jeansBrandName = "US Polo")))
+            this.add(JeansDTO(brandName = "Color Plus", availableSize = prepareJeansSizeList(jeansBrandName = "Color Plus")))
         }
 
         return spnList
@@ -119,14 +90,5 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    private fun filterSizeBasedOnJeansSelection(selectedJeans : String) : List<String>{
-        val filteredJeansSizeList = ArrayList<String>()
-        for (jeansSize in jeansSizeList){
-            if (jeansSize.contains(selectedJeans))
-                filteredJeansSizeList.add(jeansSize)
-        }
-
-        return filteredJeansSizeList
-    }
 
 }
