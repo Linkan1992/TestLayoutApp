@@ -31,7 +31,7 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     private fun prepareJeansSizeList(jeansBrandName : String) : List<String>{
         val spnList : List<String> = ArrayList<String>().apply {
-            
+
             this.add("$jeansBrandName - 30")
             this.add("$jeansBrandName - 32")
             this.add("$jeansBrandName - 34")
