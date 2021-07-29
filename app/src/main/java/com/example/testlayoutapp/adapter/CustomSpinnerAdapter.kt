@@ -33,6 +33,10 @@ class CustomSpinnerAdapter(private val dataList : List<StateDTO>) : BaseAdapter(
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.custom_spinner_dropdown_item, parent, false)
         val selectedItemView = view.findViewById<TextView>(R.id.tv_drop_selected)
         selectedItemView.text = getItem(position).stateName
+
+        if (position == count - 1)
+            view.findViewById<View>(R.id.view_seperator).visibility = View.GONE
+
         return view
     }
 
