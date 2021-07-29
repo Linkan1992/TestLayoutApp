@@ -24,7 +24,8 @@ class SpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spinner_layout)
-
+        CustomSpinnerActivity.navigateToPage(this@SpinnerActivity)
+        finish()
         initSortSpinner(prepareSortSpinnerList())
     }
 
