@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatSpinner
 import com.example.testlayoutapp.adapter.CitySpinnerAdapter
-import com.example.testlayoutapp.adapter.CustomSpinnerAdapter
+import com.example.testlayoutapp.adapter.StateSpinnerAdapter
 import com.example.testlayoutapp.model.CityDTO
-import com.example.testlayoutapp.model.JeansDTO
 import com.example.testlayoutapp.model.StateDTO
 
 class CustomSpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -142,7 +140,7 @@ class CustomSpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
             }
         }
-        val spnStateAdapter = CustomSpinnerAdapter(stateSpinnerList)
+        val spnStateAdapter = StateSpinnerAdapter(stateSpinnerList)
         spnState.adapter = spnStateAdapter
     }
 
