@@ -9,8 +9,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.testlayoutapp.adapter.CitySpinnerAdapter
 import com.example.testlayoutapp.adapter.CustomSpinnerAdapter
+import com.example.testlayoutapp.adapter.ItemListAdapter
 import com.example.testlayoutapp.model.CityDTO
 import com.example.testlayoutapp.model.JeansDTO
 import com.example.testlayoutapp.model.StateDTO
@@ -30,6 +34,18 @@ class CustomSpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         setContentView(R.layout.activity_custom_spinner)
 
         initStateSpinner(prepareStateSpinnerList())
+        setupRecyclerViewList()
+    }
+
+    private fun setupRecyclerViewList() {
+        val recyclerViewList = findViewById<RecyclerView>(R.id.rview_list)
+        val layoutManagerObj = LinearLayoutManager(this@CustomSpinnerActivity)
+        layoutManagerObj.orientation = RecyclerView.VERTICAL
+        recyclerViewList.layoutManager = layoutManagerObj
+        recyclerViewList.itemAnimator = DefaultItemAnimator()
+        val itemAdapter = ItemListAdapter(dataList = ArrayList())
+        recyclerViewList.adapter = itemAdapter
+
     }
 
 
