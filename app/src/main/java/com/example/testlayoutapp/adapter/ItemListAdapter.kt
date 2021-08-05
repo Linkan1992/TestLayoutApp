@@ -1,16 +1,23 @@
 package com.example.testlayoutapp.adapter
 
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testlayoutapp.R
+import com.example.testlayoutapp.model.ItemModel
+import com.google.android.material.textview.MaterialTextView
 
-class ItemListAdapter(private val dataList : List<String>) : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>() {
+class ItemListAdapter(private val dataList : List<ItemModel>) : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        TODO("Not yet implemented")
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_item_view, parent, false)
+        return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -21,7 +28,8 @@ class ItemListAdapter(private val dataList : List<String>) : RecyclerView.Adapte
         return dataList.size
     }
 
-    inner class ItemViewHolder : RecyclerView.ViewHolder() {
-
+    inner class ItemViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imgItem by lazy { itemView.findViewById<AppCompatImageView>(R.id.image_Report) }
+        val tvTitle by lazy { itemView.findViewById<MaterialTextView>(R.id.text_Report) }
     }
 }

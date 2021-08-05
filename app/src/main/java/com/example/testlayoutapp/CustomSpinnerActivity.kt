@@ -16,6 +16,7 @@ import com.example.testlayoutapp.adapter.CitySpinnerAdapter
 import com.example.testlayoutapp.adapter.CustomSpinnerAdapter
 import com.example.testlayoutapp.adapter.ItemListAdapter
 import com.example.testlayoutapp.model.CityDTO
+import com.example.testlayoutapp.model.ItemModel
 import com.example.testlayoutapp.model.JeansDTO
 import com.example.testlayoutapp.model.StateDTO
 
@@ -43,9 +44,28 @@ class CustomSpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         layoutManagerObj.orientation = RecyclerView.VERTICAL
         recyclerViewList.layoutManager = layoutManagerObj
         recyclerViewList.itemAnimator = DefaultItemAnimator()
-        val itemAdapter = ItemListAdapter(dataList = ArrayList())
+       // val itemAdapter = ItemListAdapter(dataList = ArrayList())
+        val itemAdapter = ItemListAdapter(dataList = createRecyclerList())
         recyclerViewList.adapter = itemAdapter
 
+    }
+
+    private fun createRecyclerList(): List<ItemModel> {
+        val dataList = ArrayList<ItemModel>().apply {
+            add(ItemModel(sourceImage = R.drawable.arrow, title = "Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_bell, title = "Bell"))
+            add(ItemModel(sourceImage = R.drawable.ic_drop_down_arrow, title = "Drop-Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_rupee, title = "Rupee"))
+            add(ItemModel(sourceImage = R.drawable.arrow, title = "Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_bell, title = "Bell"))
+            add(ItemModel(sourceImage = R.drawable.ic_drop_down_arrow, title = "Drop-Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_rupee, title = "Rupee"))
+            add(ItemModel(sourceImage = R.drawable.arrow, title = "Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_bell, title = "Bell"))
+            add(ItemModel(sourceImage = R.drawable.ic_drop_down_arrow, title = "Drop-Arrow"))
+            add(ItemModel(sourceImage = R.drawable.ic_rupee, title = "Rupee"))
+        }
+        return dataList
     }
 
 
