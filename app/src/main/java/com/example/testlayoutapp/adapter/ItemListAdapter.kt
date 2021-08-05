@@ -10,7 +10,7 @@ import com.example.testlayoutapp.R
 import com.example.testlayoutapp.model.ItemModel
 import com.google.android.material.textview.MaterialTextView
 
-class ItemListAdapter(private val dataList : List<ItemModel>) : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>() {
+class ItemListAdapter(private val dataList : MutableList<ItemModel>) : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_item_view, parent, false)
@@ -39,5 +39,10 @@ class ItemListAdapter(private val dataList : List<ItemModel>) : RecyclerView.Ada
     open inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgItem by lazy { itemView.findViewById<AppCompatImageView>(R.id.image_Report) }
         val tvTitle by lazy { itemView.findViewById<MaterialTextView>(R.id.text_Report) }
+    }
+
+    fun updateList(list : List<ItemModel>) {
+        dataList.addAll(list)
+        notifyDataSetChanged()
     }
 }

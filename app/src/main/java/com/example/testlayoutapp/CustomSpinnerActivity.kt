@@ -44,10 +44,12 @@ class CustomSpinnerActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         layoutManagerObj.orientation = RecyclerView.VERTICAL
         recyclerViewList.layoutManager = layoutManagerObj
         recyclerViewList.itemAnimator = DefaultItemAnimator()
-       // val itemAdapter = ItemListAdapter(dataList = ArrayList())
-        val itemAdapter = ItemListAdapter(dataList = createRecyclerList())
+        val itemAdapter = ItemListAdapter(dataList = ArrayList())
+       // val itemAdapter = ItemListAdapter(dataList = createRecyclerList())
         recyclerViewList.adapter = itemAdapter
 
+        val dataList = createRecyclerList()
+        itemAdapter.updateList(dataList)
     }
 
     private fun createRecyclerList(): List<ItemModel> {
