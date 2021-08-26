@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Test Layout App</string>
+    <string name="app_name">TTS App</string>
     <string name="wallet_balance">Wallet Balance</string>
 </resources>

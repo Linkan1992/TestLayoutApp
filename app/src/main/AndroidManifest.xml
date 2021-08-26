@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestLayoutApp">
         <activity android:name=".CustomSpinnerActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".TTSActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
