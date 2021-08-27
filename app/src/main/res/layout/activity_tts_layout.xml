@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".TTSActivity">
+
+    <Button
+        android:id="@+id/btn_en_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak English (US)"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/btn_hi_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak Hindi"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/btn_gu_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak Gujarati"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/btn_mr_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak Marathi"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/btn_kn_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak Kannada"
+        android:visibility="visible"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_selected_lang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/d_4dp"
+        android:layout_margin="@dimen/d_4dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_text_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="Text from TTS goes here." />
+
+    <Button
+        android:id="@+id/btn_tts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listen" />
+
+</LinearLayout>
