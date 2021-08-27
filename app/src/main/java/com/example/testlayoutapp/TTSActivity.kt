@@ -8,19 +8,23 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.Voice
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
 
-class TTSActivity : AppCompatActivity() {
+class TTSActivity : AppCompatActivity(), View.OnClickListener {
 
     private val TAG = "TTSActivity"
 
     private lateinit var textToSpeechEngine: TextToSpeech
+
+    private var selectedLangCode = "en"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,11 @@ class TTSActivity : AppCompatActivity() {
             Log.d(TAG, nle.toString())
         }
 
+        findViewById<Button>(R.id.btn_gu_lang).setOnClickListener(this)
+        findViewById<Button>(R.id.btn_hi_lang).setOnClickListener(this)
+        findViewById<Button>(R.id.btn_en_lang).setOnClickListener(this)
+        findViewById<Button>(R.id.btn_mr_lang).setOnClickListener(this)
+        findViewById<Button>(R.id.btn_kn_lang).setOnClickListener(this)
 
 
         findViewById<Button>(R.id.btn_tts).setOnClickListener {
@@ -68,6 +77,23 @@ class TTSActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        displaySelectedLanguage()
+    }
+
+    private fun displaySelectedLanguage() {
+        val languageName = when(selectedLangCode){
+            "en" -> "English"
+            "hi" -> "Hindi"
+            "gu" -> "Gujarati"
+            "mr" -> "Marathi"
+            "kn" -> "Kannada"
+            else -> "English"
+        }
+        findViewById<MaterialTextView>(R.id.tv_selected_lang).text = "Language : ${languageName}"
+    }
+
     private fun createGoogleTTS() {
         // Pass in context and the listener.
         textToSpeechEngine = TextToSpeech(
@@ -94,7 +120,10 @@ class TTSActivity : AppCompatActivity() {
                         Log.d(TAG, it.toString())
                         Log.d("TTSActivity1", it.name)
                     }
-                    setVoiceSelection()
+                    val a: MutableSet<String> = HashSet()
+                    a.add("male") //here you can give male if you want to select male voice.
+                    val v = Voice("en-us-x-iol-local", Locale("en", "US"), 400, 200, false, a) // male english voice
+                    setVoiceSelection(v)
                 }
             } else
                 installGoogleTTS()
@@ -134,7 +163,7 @@ class TTSActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun setVoiceSelection() {
+    private fun setVoiceSelection(v : Voice) {
         val a: MutableSet<String> = HashSet()
         a.add("male") //here you can give male if you want to select male voice.
 
@@ -143,7 +172,9 @@ class TTSActivity : AppCompatActivity() {
           //  val v = Voice("hi-in-x-hie-local", Locale("hi", "IN"), 400, 200, false, a) // male hindi voice
           //  val v = Voice("hi-in-x-hic-local", Locale("hi", "IN"), 500, 200, false, a) // female hindi voice
 
-              val v = Voice("gu-in-x-gum-local", Locale("gu", "IN"), 500, 200, false, a) // male gujarati voice
+          //  val v = Voice("gu-in-x-gum-local", Locale("gu", "IN"), 500, 200, false, a) // male gujarati voice
+
+          //  val v = Voice("en-us-x-iol-local", Locale("en", "US"), 400, 200, false, a) // male english voice
 
 
 
@@ -177,6 +208,27 @@ class TTSActivity : AppCompatActivity() {
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
+    }
+
+    override fun onClick(v: View?) {
+        val a: MutableSet<String> = HashSet()
+        a.add("male") //here you can give male if you want to select male voice.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val voice = when(v?.id){
+                    R.id.btn_en_lang -> Voice("en-us-x-iol-local", Locale("en", "US"), 400, 200, false, a)
+                    R.id.btn_hi_lang -> Voice("hi-in-x-hie-local", Locale("hi", "IN"), 500, 200, false, a)
+                    R.id.btn_gu_lang -> Voice("gu-in-x-gum-local", Locale("gu", "IN"), 500, 200, false, a)
+                    R.id.btn_mr_lang -> Voice("mr-in-x-mrf-local", Locale("mr", "IN"), 500, 200, false, a)
+                    R.id.btn_kn_lang -> Voice("kn-in-x-knm-local", Locale("kn", "IN"), 500, 200, false, a)
+                    else -> Voice("en-us-x-iol-local", Locale("en", "US"), 400, 200, false, a)
+                }
+                // val voice = Voice("gu-in-x-gum-local", Locale("gu", "IN"), 500, 200, false, a) // male gujarati voice
+                //  val voice = Voice("en-us-x-iol-local", Locale("en", "US"), 400, 200, false, a) // male english voice
+                selectedLangCode = voice.locale.language
+                displaySelectedLanguage()
+                setVoiceSelection(voice)
+            }
+
     }
 
 }
