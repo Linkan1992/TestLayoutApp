@@ -1,5 +1,6 @@
 package com.example.testlayoutapp
 
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,17 +15,26 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
+import com.example.testlayoutapp.fcm.MyFirebaseMessagingService
+import com.example.testlayoutapp.fcm.MyNotificationListener
+import com.example.testlayoutapp.fcm.NotificationReceiver
+import com.example.testlayoutapp.util.Utility
 import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
 
 class TTSActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val TAG = "TTSActivity"
+
 
     private lateinit var textToSpeechEngine: TextToSpeech
 
     private var selectedLangCode = "en"
+
+    companion object{
+        private const val TAG = "TTSActivity"
+        var isAppRunningInForeground = true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +42,13 @@ class TTSActivity : AppCompatActivity(), View.OnClickListener {
 
         val et_text_input = findViewById<AppCompatEditText>(R.id.et_text_input)
 
+        if(!Utility.isNotificationListenerEnabled(this)){
+            Utility.openNotificationListenSettings(this)
+        }
+
+        keepAliveComponent(NotificationReceiver::class.java)
+        keepAliveComponent(MyFirebaseMessagingService::class.java)
+        keepAliveComponent(MyNotificationListener::class.java)
 
         try {
             if (isGoogleTTSInstalled())
@@ -75,11 +92,14 @@ class TTSActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
             }
         }
+
+        MyFirebaseMessagingService.doSendNotification()
     }
 
     override fun onStart() {
         super.onStart()
         displaySelectedLanguage()
+        isAppRunningInForeground = true
     }
 
     private fun displaySelectedLanguage() {
@@ -207,6 +227,7 @@ class TTSActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
+        isAppRunningInForeground = false
         super.onDestroy()
     }
 
@@ -230,5 +251,11 @@ class TTSActivity : AppCompatActivity(), View.OnClickListener {
             }
 
     }
+
+    private fun <T> keepAliveComponent(componentClass : Class<T>){
+        val component = ComponentName(this, componentClass)
+        Utility.keepAliveComponent(this, component)
+    }
+
 
 }
