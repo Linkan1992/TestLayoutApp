@@ -91,7 +91,7 @@ class LocalNotificationScheduler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 var channel = notificationManager.getNotificationChannel(id)
                 if (channel == null) {
-                    channel = NotificationChannel(id,TTS_NOTIFICATION_TEST, NotificationManager.IMPORTANCE_LOW)
+                    channel = NotificationChannel(id,TTS_NOTIFICATION_TEST, NotificationManager.IMPORTANCE_HIGH)
                     channel.description = NOTIFICATION_DESCRIPTION
                     notificationManager.createNotificationChannel(channel)
                 }
@@ -127,7 +127,7 @@ class LocalNotificationScheduler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 var channel = notificationManager.getNotificationChannel(id)
                 if (channel == null) {
-                    channel = NotificationChannel(id,TTS_NOTIFICATION_TEST, NotificationManager.IMPORTANCE_LOW)
+                    channel = NotificationChannel(id,TTS_NOTIFICATION_TEST, NotificationManager.IMPORTANCE_HIGH)
                     channel.description = NOTIFICATION_DESCRIPTION
                     notificationManager.createNotificationChannel(channel)
                 }
@@ -148,6 +148,31 @@ class LocalNotificationScheduler {
             applicationContext.startForeground(4, builder.build())
            // notificationManager.notify(0, builder.build())
 
+        }
+    }
+
+    fun fakeNotification(applicationContext: Service){
+        val notificationManager =
+            applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+
+
+        if (notificationManager != null) {
+            val id: String = NOTIFICATION_CHANNEL_ID
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                var channel = notificationManager.getNotificationChannel(id)
+                if (channel == null) {
+                    channel = NotificationChannel(id,TTS_NOTIFICATION_TEST, NotificationManager.IMPORTANCE_LOW)
+                    channel.description = NOTIFICATION_DESCRIPTION
+                    notificationManager.createNotificationChannel(channel)
+                }
+            }
+
+            val builder: NotificationCompat.Builder =
+                NotificationCompat.Builder(applicationContext, id)
+                    /*.setSmallIcon(R.drawable.ic_bell)
+                    .setContentTitle("")
+                    .setContentText("")*/
+            applicationContext.startForeground(4, builder.build())
         }
     }
 

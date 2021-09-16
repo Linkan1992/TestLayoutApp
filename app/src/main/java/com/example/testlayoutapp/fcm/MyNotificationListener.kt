@@ -33,6 +33,8 @@ class MyNotificationListener : NotificationListenerService() {
 
             }, "com.google.android.tts"
         )
+        Log.i(TAG, "Service Created")
+      //  LocalNotificationScheduler().fakeNotification(this)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -73,7 +75,6 @@ class MyNotificationListener : NotificationListenerService() {
     override fun onBind(intent: Intent?): IBinder? {
         return super.onBind(intent)
     }
-
 
 
 }
